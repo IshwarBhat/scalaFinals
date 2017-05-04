@@ -66,7 +66,9 @@ object question1 {;import org.scalaide.worksheet.runtime.library.WorksheetSuppor
   val b_slope = (xVec.center dot yVec.center) / (xVec.center dot xVec.center);System.out.println("""b_slope  : Double = """ + $show(b_slope ));$skip(52); 
   val a_intercept = yVec.mean - b_slope * xVec.mean;System.out.println("""a_intercept  : Double = """ + $show(a_intercept ));$skip(55); 
   
-  val aRDD = spark.sparkContext.makeRDD(inputArray);System.out.println("""aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(aRDD ));$skip(34); 
-  aRDD.collect().foreach(println)}
+  val aRDD = spark.sparkContext.makeRDD(inputArray);System.out.println("""aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(aRDD ));$skip(135); 
+  // print aRDD here: arDD.collect().foreach(println)
+  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1))};System.out.println("""parsedData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regression.LabeledPoint] = """ + $show(parsedData ));$skip(40); 
+  parsedData.collect().foreach(println)}
   
 }

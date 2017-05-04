@@ -26,7 +26,7 @@ object question1 {
                                                   //> Using Spark's default log4j profile: org/apache/spark/log4j-defaults.propert
                                                   //| ies
                                                   //| spark  : org.apache.spark.sql.SparkSession = org.apache.spark.sql.SparkSessi
-                                                  //| on@610db97e
+                                                  //| on@79f227a9
   import spark.implicits._
   spark.version                                   //> res0: String = 2.1.0
 	// Part b
@@ -78,13 +78,17 @@ object question1 {
   val aRDD = spark.sparkContext.makeRDD(inputArray)
                                                   //> aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = ParallelCollectionRDD[
                                                   //| 0] at makeRDD at question1.scala:69
-  aRDD.collect().foreach(println)                 //> [Stage 0:>                                                          (0 + 0
+  // print aRDD here: arDD.collect().foreach(println)
+  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1))}
+                                                  //> parsedData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regression.La
+                                                  //| beledPoint] = MapPartitionsRDD[1] at map at question1.scala:71
+  parsedData.collect().foreach(println)           //> [Stage 0:>                                                          (0 + 0
                                                   //| ) / 8]                                                                    
-                                                  //|             (1.0,6.0)
-                                                  //| (2.0,8.0)
-                                                  //| (3.0,10.0)
-                                                  //| (3.0,10.0)
-                                                  //| (4.0,12.0)
-                                                  //| (5.0,14.0)
+                                                  //|             (6.0,[1.0])
+                                                  //| (8.0,[2.0])
+                                                  //| (10.0,[3.0])
+                                                  //| (10.0,[3.0])
+                                                  //| (12.0,[4.0])
+                                                  //| (14.0,[5.0])
   
 }
