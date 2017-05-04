@@ -33,10 +33,16 @@ object question2 {;import org.scalaide.worksheet.runtime.library.WorksheetSuppor
                   .option("header", true).schema(schema)
                   .csv("./../../workspace/finals/data/bodies.csv");System.out.println("""BodyDF  : org.apache.spark.sql.DataFrame = """ + $show(BodyDF ));$skip(24); 
    BodyDF.printSchema();$skip(17); 
-   BodyDF.show();$skip(154); 
+   BodyDF.show();$skip(149); 
    // case class stuff(id: Int, width: Double,  height: Double, depth: Double, material: String, color: String)
    
-   val caseClassDS = BodyDF.as[stuff];System.out.println("""caseClassDS  : org.apache.spark.sql.Dataset[stuff] = """ + $show(caseClassDS ));$skip(22); 
-   caseClassDS.show()}
+   val BodyDS = BodyDF.as[stuff];System.out.println("""BodyDS  : org.apache.spark.sql.Dataset[stuff] = """ + $show(BodyDS ));$skip(17); 
+   BodyDS.show();$skip(80); 
+   val surfaceArea = (x: Double, y: Double, z: Double) => 2 * (x*y + y*z + x*z);System.out.println("""surfaceArea  : (Double, Double, Double) => Double = """ + $show(surfaceArea ));$skip(34); 
+   val areaUDF = udf(surfaceArea);System.out.println("""areaUDF  : org.apache.spark.sql.expressions.UserDefinedFunction = """ + $show(areaUDF ));$skip(123); 
+   
+   val BodyDSWithArea = BodyDS.withColumn("Surface Area", areaUDF(BodyDS("width"), BodyDS("height"), BodyDS("depth")));System.out.println("""BodyDSWithArea  : org.apache.spark.sql.DataFrame = """ + $show(BodyDSWithArea ));$skip(25); 
+   BodyDSWithArea.show()}
+   
   
 }
