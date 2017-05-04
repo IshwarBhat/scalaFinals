@@ -105,26 +105,26 @@ object question3 {
                                                   //> pipeline  : org.apache.spark.ml.Pipeline = pipeline_7ab89bf1eb46
    
    val pipeLineModel = pipeline.fit(trainingData) //> 17/05/04 03:42:18 WARN BLAS: Failed to load implementation from: com.github
-                                                  //| .fommil.netlib.NativeSystemBLAS
-                                                  //| 17/05/04 03:42:18 WARN BLAS: Failed to load implementation from: com.github
-                                                  //| .fommil.netlib.NativeRefBLAS
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.541
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.385865 (rel: 0.443) 0.39
-                                                  //| 8530
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.331483 (rel: 0.141) 0.48
-                                                  //| 9178
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.258889 (rel: 0.219) 0.23
-                                                  //| 0936
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.215090 (rel: 0.169) 0.10
-                                                  //| 3048
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.187097 (rel: 0.130) 0.08
-                                                  //| 73480
-                                                  //| 17/05/04 03:42:18 INFO LBFGS: Step
-                                                  //| Output exceeds cutoff limit.
+                 //| .fommil.netlib.NativeSystemBLAS
+                 //| 17/05/04 03:42:18 WARN BLAS: Failed to load implementation from: com.github
+                 //| .fommil.netlib.NativeRefBLAS
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.541
+                 //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.385865 (rel: 0.443) 0.39
+                 //| 8530
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
+                 //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.331483 (rel: 0.141) 0.48
+                 //| 9178
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
+                 //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.258889 (rel: 0.219) 0.23
+                 //| 0936
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
+                 //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.215090 (rel: 0.169) 0.10
+                 //| 3048
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step Size: 1.000
+                 //| 17/05/04 03:42:18 INFO LBFGS: Val and Grad Norm: 0.187097 (rel: 0.130) 0.08
+                 //| 73480
+                 //| 17/05/04 03:42:18 INFO LBFGS: Step
+                 //| Output exceeds cutoff limit.
    val testPredictions = pipeLineModel.transform(testData)
                                                   //> testPredictions  : org.apache.spark.sql.DataFrame = [text: string, label: d
                                                   //| ouble ... 5 more fields]
@@ -154,34 +154,34 @@ object question3 {
                          .addGrid(lr.regParam, Array(0.01, 0.1, 1.0))
                          .addGrid(lr.maxIter, Array(20, 30))
                          .build()                 //> paramGrid  : Array[org.apache.spark.ml.param.ParamMap] = Array({
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
-                                                  //| 	logreg_70c885916880-regParam: 0.01
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
-                                                  //| 	logreg_70c885916880-regParam: 0.1
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
-                                                  //| 	logreg_70c885916880-regParam: 1.0
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
-                                                  //| 	logreg_70c885916880-regParam: 0.01
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
-                                                  //| 	logreg_70c885916880-regParam: 0.1
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 20,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
-                                                  //| 	logreg_70c885916880-regParam: 1.0
-                                                  //| }, {
-                                                  //| 	logreg_70c885916880-maxIter: 30,
-                                                  //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
-                                                  //| 	log
-                                                  //| Output exceeds cutoff limit.
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
+                //| 	logreg_70c885916880-regParam: 0.01
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
+                //| 	logreg_70c885916880-regParam: 0.1
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
+                //| 	logreg_70c885916880-regParam: 1.0
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
+                //| 	logreg_70c885916880-regParam: 0.01
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
+                //| 	logreg_70c885916880-regParam: 0.1
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 20,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 100000,
+                //| 	logreg_70c885916880-regParam: 1.0
+                //| }, {
+                //| 	logreg_70c885916880-maxIter: 30,
+                //| 	hashingTF_a4b1952701f6-numFeatures: 10000,
+                //| 	log
+                //| Output exceeds cutoff limit.
    import org.apache.spark.ml.tuning.CrossValidator
    val crossValidator = new CrossValidator()
    													  .setEstimator(pipeline)
@@ -191,27 +191,27 @@ object question3 {
                                                   //> crossValidator  : org.apache.spark.ml.tuning.CrossValidator = cv_444ac38090
                                                   //| 0e
    val crossValidatorModel = crossValidator.fit(trainingData)
-                                                  //> 17/05/04 03:42:19 INFO LBFGS: Step Size: 0.9467
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.216270 (rel: 0.688) 0.28
-                                                  //| 0968
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.135876 (rel: 0.372) 0.16
-                                                  //| 0260
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0755306 (rel: 0.444) 0.0
-                                                  //| 859171
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0557529 (rel: 0.262) 0.0
-                                                  //| 246433
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0528117 (rel: 0.0528) 0.
-                                                  //| 0124216
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0516282 (rel: 0.0224) 0.
-                                                  //| 00755015
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
-                                                  //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0512541 (
-                                                  //| Output exceeds cutoff limit.
+          //> 17/05/04 03:42:19 INFO LBFGS: Step Size: 0.9467
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.216270 (rel: 0.688) 0.28
+          //| 0968
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.135876 (rel: 0.372) 0.16
+          //| 0260
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0755306 (rel: 0.444) 0.0
+          //| 859171
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0557529 (rel: 0.262) 0.0
+          //| 246433
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0528117 (rel: 0.0528) 0.
+          //| 0124216
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0516282 (rel: 0.0224) 0.
+          //| 00755015
+          //| 17/05/04 03:42:19 INFO LBFGS: Step Size: 1.000
+          //| 17/05/04 03:42:19 INFO LBFGS: Val and Grad Norm: 0.0512541 (
+          //| Output exceeds cutoff limit.
    
    val newPredictions = crossValidatorModel.transform(testData)
                                                   //> newPredictions  : org.apache.spark.sql.DataFrame = [text: string, label: do
