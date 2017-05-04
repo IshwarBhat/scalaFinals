@@ -48,7 +48,7 @@ object question1 {
                                      v.map( x => x - m)
                                    }
     }/* end VectorEnrich */
-  println("Welcome to the Scala worksheet")       //> Welcome to the Scala worksheet
+  println("Question 1")       //> Question 1
   
   val fileMat = Array("[1.0,  6.0]",
                     "[2.0,  8.0]",
