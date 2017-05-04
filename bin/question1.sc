@@ -79,16 +79,65 @@ object question1 {
                                                   //> aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = ParallelCollectionRDD[
                                                   //| 0] at makeRDD at question1.scala:69
   // print aRDD here: arDD.collect().foreach(println)
-  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1))}
+  val xVecUnitized = xVec/(xVec.norm)             //> xVecUnitized  : scala.collection.immutable.Vector[Double] = Vector(0.125, 0
+                                                  //| .25, 0.375, 0.375, 0.5, 0.625)
+  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1/xVec.norm))}.cache()
                                                   //> parsedData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regression.La
-                                                  //| beledPoint] = MapPartitionsRDD[1] at map at question1.scala:71
-  parsedData.collect().foreach(println)           //> [Stage 0:>                                                          (0 + 0
-                                                  //| ) / 8]                                                                    
-                                                  //|             (6.0,[1.0])
-                                                  //| (8.0,[2.0])
-                                                  //| (10.0,[3.0])
-                                                  //| (10.0,[3.0])
-                                                  //| (12.0,[4.0])
-                                                  //| (14.0,[5.0])
+                                                  //| beledPoint] = MapPartitionsRDD[1] at map at question1.scala:72
+  // parsedData.collect().foreach(println)
+  
+  
+  var regression = new LinearRegressionWithSGD()  //> regression  : org.apache.spark.mllib.regression.LinearRegressionWithSGD = o
+                                                  //| rg.apache.spark.mllib.regression.LinearRegressionWithSGD@4c98a6d5
+  regression.setIntercept(true)                   //> res1: org.apache.spark.mllib.regression.LinearRegressionWithSGD = org.apach
+                                                  //| e.spark.mllib.regression.LinearRegressionWithSGD@4c98a6d5
+  val numIterations = 600                         //> numIterations  : Int = 600
+  val stepSize = 2.0                              //> stepSize  : Double = 2.0
+  regression.optimizer.setNumIterations(numIterations)
+                                                  //> res2: org.apache.spark.mllib.optimization.GradientDescent = org.apache.spar
+                                                  //| k.mllib.optimization.GradientDescent@392a04e7
+  regression.optimizer.setStepSize(stepSize)      //> res3: org.apache.spark.mllib.optimization.GradientDescent = org.apache.spar
+                                                  //| k.mllib.optimization.GradientDescent@392a04e7
+  
+  val model = regression.run(parsedData)          //> 17/05/04 01:40:53 WARN BLAS: Failed to load implementation from: com.github
+                                                  //| .fommil.netlib.NativeSystemBLAS
+                                                  //| 17/05/04 01:40:53 WARN BLAS: Failed to load implementation from: com.github
+                                                  //| .fommil.netlib.NativeRefBLAS
+                                                  //| model  : org.apache.spark.mllib.regression.LinearRegressionModel = org.apac
+                                                  //| he.spark.mllib.regression.LinearRegressionModel: intercept = 5.467170722815
+                                                  //| 118, numFeatures = 1
+  model.weights                                   //> res4: org.apache.spark.mllib.linalg.Vector = [12.176614383802315]
+	model.intercept                           //> res5: Double = 5.467170722815118
+  
+  val testArray = Array((5.0,14.0), (6.0,16.0), (7.0,18.0), (10.0, 24.0), (15.0, 34.0))
+                                                  //> testArray  : Array[(Double, Double)] = Array((5.0,14.0), (6.0,16.0), (7.0,1
+                                                  //| 8.0), (10.0,24.0), (15.0,34.0))
+  val testRDD = spark.sparkContext.makeRDD(testArray)
+                                                  //> testRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = ParallelCollectionR
+                                                  //| DD[989] at makeRDD at question1.scala:88
+  val parsedTestData = testRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1/xVec.norm))}.cache()
+                                                  //> parsedTestData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regressio
+                                                  //| n.LabeledPoint] = MapPartitionsRDD[990] at map at question1.scala:89
+  val valuesAndPreds = parsedData.map { point =>
+	  val prediction = model.predict(point.features)
+	  (point.label, prediction)
+	}                                         //> valuesAndPreds  : org.apache.spark.rdd.RDD[(Double, Double)] = MapPartition
+                                                  //| sRDD[991] at map at question1.scala:90
+  val valuesAndPreds2 = parsedTestData.map { point =>
+  val prediction = model.predict(point.features)
+	  (point.label, prediction)
+	}                                         //> valuesAndPreds2  : org.apache.spark.rdd.RDD[(Double, Double)] = MapPartitio
+                                                  //| nsRDD[992] at map at question1.scala:94
+  valuesAndPreds.collect.foreach(println)         //> (6.0,6.989247520790408)
+                                                  //| (8.0,8.511324318765697)
+                                                  //| (10.0,10.033401116740986)
+                                                  //| (10.0,10.033401116740986)
+                                                  //| (12.0,11.555477914716276)
+                                                  //| (14.0,13.077554712691565)
+  valuesAndPreds2.collect.foreach(println)        //> (14.0,13.077554712691565)
+                                                  //| (16.0,14.599631510666853)
+                                                  //| (18.0,16.121708308642145)
+                                                  //| (24.0,20.68793870256801)
+                                                  //| (34.0,28.29832269244446)
   
 }
