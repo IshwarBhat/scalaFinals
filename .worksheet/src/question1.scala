@@ -66,11 +66,11 @@ object question1 {;import org.scalaide.worksheet.runtime.library.WorksheetSuppor
   val b_slope = (xVec.center dot yVec.center) / (xVec.center dot xVec.center);System.out.println("""b_slope  : Double = """ + $show(b_slope ));$skip(52); 
   val a_intercept = yVec.mean - b_slope * xVec.mean;System.out.println("""a_intercept  : Double = """ + $show(a_intercept ));$skip(55); 
   
-  val aRDD = spark.sparkContext.makeRDD(inputArray);System.out.println("""aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(aRDD ));$skip(92); 
-  // print aRDD here: arDD.collect().foreach(println)
+  val aRDD = spark.sparkContext.makeRDD(inputArray);System.out.println("""aRDD  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(aRDD ));$skip(34); 
+  aRDD.collect().foreach(println);$skip(38); 
   val xVecUnitized = xVec/(xVec.norm);System.out.println("""xVecUnitized  : scala.collection.immutable.Vector[Double] = """ + $show(xVecUnitized ));$skip(99); 
-  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1/xVec.norm))}.cache();System.out.println("""parsedData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regression.LabeledPoint] = """ + $show(parsedData ));$skip(98); 
-  // parsedData.collect().foreach(println)
+  val parsedData = aRDD.map {tup => LabeledPoint(tup._2, Vectors.dense(tup._1/xVec.norm))}.cache();System.out.println("""parsedData  : org.apache.spark.rdd.RDD[org.apache.spark.mllib.regression.LabeledPoint] = """ + $show(parsedData ));$skip(40); 
+  parsedData.collect().foreach(println);$skip(55); 
   
   
   var regression = new LinearRegressionWithSGD();System.out.println("""regression  : org.apache.spark.mllib.regression.LinearRegressionWithSGD = """ + $show(regression ));$skip(32); val res$1 = 
@@ -94,8 +94,10 @@ object question1 {;import org.scalaide.worksheet.runtime.library.WorksheetSuppor
   val valuesAndPreds2 = parsedTestData.map { point =>
   val prediction = model.predict(point.features)
 	  (point.label, prediction)
-	};System.out.println("""valuesAndPreds2  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(valuesAndPreds2 ));$skip(42); 
-  valuesAndPreds.collect.foreach(println);$skip(43); 
+	};System.out.println("""valuesAndPreds2  : org.apache.spark.rdd.RDD[(Double, Double)] = """ + $show(valuesAndPreds2 ));$skip(72); 
+  // test with original data:
+  valuesAndPreds.collect.foreach(println);$skip(72); 
+  // test with our own data:
   valuesAndPreds2.collect.foreach(println)}
   
 }
