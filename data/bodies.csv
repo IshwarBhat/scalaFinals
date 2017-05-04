@@ -1,0 +1,8 @@
+id, width, height,depth, material,color
+1, 10, 10, 10, wood, brown
+2, 20,20, 20, glass, green
+3,30,30 , 30, metal, yellow
+4,33,30 , 30, metal, black
+5,40,30 , 30, metal, black
+6,40,30 , 30, metal, purple
+7,45,30 , 30, metal, orange
